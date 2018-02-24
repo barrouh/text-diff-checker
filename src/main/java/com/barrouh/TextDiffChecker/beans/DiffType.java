@@ -10,7 +10,7 @@ public enum DiffType {
 
 	REMOVAL("Removal"),
 	ADDITION("Addition"),
-	SAME("Same");
+	EQUAL("Equal");
 	
     private String type;
 

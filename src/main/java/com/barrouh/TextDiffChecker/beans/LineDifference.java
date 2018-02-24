@@ -8,12 +8,15 @@ public class LineDifference {
 	
 	private IsLineDiff isDiff ;
 	
+	private String lineValue;
+	
 	private  ArrayList<Difference> differences ;
 
-	public LineDifference(int line, IsLineDiff isDiff) {
+	public LineDifference(int line, IsLineDiff isDiff,String lineValue) {
 		super();
 		this.line = line;
 		this.isDiff = isDiff;
+		this.lineValue=lineValue;
 	}
 	
 	public LineDifference(int line, IsLineDiff isDiff, ArrayList<Difference> differences) {
@@ -37,6 +40,10 @@ public class LineDifference {
 
 	public void setIsDiff(IsLineDiff isDiff) {
 		this.isDiff = isDiff;
+	}
+
+	public String getLineValue() {
+		return lineValue;
 	}
 
 	public ArrayList<Difference> getDifferences() {
