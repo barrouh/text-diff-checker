@@ -6,14 +6,14 @@ package com.barrouh.TextDiffChecker.beans;
  
  */
 
-public enum LineDiff {
+public enum IsLineDiff {
 
 	YES(true),
 	NO(false);
 	
     private boolean flag;
 
-    LineDiff(boolean flag) {
+    IsLineDiff(boolean flag) {
         this.flag = flag;
     }
 
