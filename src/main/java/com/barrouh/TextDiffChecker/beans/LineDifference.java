@@ -1,7 +1,10 @@
 package com.barrouh.TextDiffChecker.beans;
 
 import java.util.ArrayList;
-
+/**
+ * @author <a href="mailto:mohamed.barrouh@gmail.com">Mohamed Barrouh</a>
+ *
+ */
 public class LineDifference {
 
 	private int line ;

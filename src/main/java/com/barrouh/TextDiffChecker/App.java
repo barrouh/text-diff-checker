@@ -5,6 +5,10 @@ import java.util.ArrayList;
 
 import com.barrouh.TextDiffChecker.beans.Utils;
 
+/**
+ * @author <a href="mailto:mohamed.barrouh@gmail.com">Mohamed Barrouh</a>
+ *
+ */
 public class App 
 {
     public static void main( String[] args ) throws IOException

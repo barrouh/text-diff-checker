@@ -6,7 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-
+/**
+ * @author <a href="mailto:mohamed.barrouh@gmail.com">Mohamed Barrouh</a>
+ *
+ */
 public class Utils {
 
 

@@ -9,7 +9,10 @@ import com.barrouh.TextDiffChecker.beans.FinalDifferences;
 import com.barrouh.TextDiffChecker.beans.IsLineDiff;
 import com.barrouh.TextDiffChecker.beans.LineDifference;
 
-
+/**
+ * @author <a href="mailto:mohamed.barrouh@gmail.com">Mohamed Barrouh</a>
+ *
+ */
 public class TextDiffChecker {
 
 	private String originalText ="holla \r\n" + "good\r\n" + "test" , 

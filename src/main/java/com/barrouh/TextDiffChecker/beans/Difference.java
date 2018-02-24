@@ -1,5 +1,8 @@
 package com.barrouh.TextDiffChecker.beans;
-
+/**
+ * @author <a href="mailto:mohamed.barrouh@gmail.com">Mohamed Barrouh</a>
+ *
+ */
 public class Difference {
 	
 	private DiffType type ;
