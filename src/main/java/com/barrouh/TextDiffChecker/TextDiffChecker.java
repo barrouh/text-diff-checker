@@ -15,14 +15,11 @@ import com.barrouh.TextDiffChecker.beans.LineDifference;
  */
 public class TextDiffChecker {
 
-	private String originalText ="holla \r\n" + "good\r\n" + "test" , 
-			       changedText  ="hi\r\n"    + "fine\r\n" ;
+	private String originalText,changedText;
 	
 	private FinalDifferences finalDiffs = new FinalDifferences();
 	
-	public TextDiffChecker() {
-		
-	}
+	public TextDiffChecker() {}
 
 	public TextDiffChecker(String originalText, String changedText) {
 		super();
@@ -46,16 +43,21 @@ public class TextDiffChecker {
 		this.changedText = changedText;
 	}
 
-	public FinalDifferences getDifferences() {
+	public FinalDifferences getFinalDifferences() {
+		// avoid repetition when calling getFinalDifferences tow times from the same object 
+		finalDiffs = new FinalDifferences();
+		findDifferences();
 		return finalDiffs;
 	}
 
-	public void findDifferences(){
+	private void findDifferences(){
 		// convert input strings to string lines 
 		ArrayList<String>  originalTextLines= convertStringToLines(originalText);
 		ArrayList<String>  changedTextLines =convertStringToLines(changedText);
-		//  avoid null pointer exception error
-		checkIfCountLinesEquals(originalTextLines,changedTextLines);
+		
+		// avoid null pointer exception 
+		checkIfCountOfLinesOrWordsEquals(originalTextLines,changedTextLines);
+		
 		// check lines differences 
 		for(int i=0;i<originalTextLines.size();i++){
 			
@@ -69,21 +71,19 @@ public class TextDiffChecker {
 				 final ArrayList<Difference> originalWordsDifferences = new ArrayList<Difference>() ;
 				 final ArrayList<Difference> changedWordsDifferences = new ArrayList<Difference>() ;
 				
-			    	// convert line to words list 
+			     // convert line to words list 
 				 ArrayList<String> originalTextWords=convertStringToWords(originalTextLines.get(i));
 				 ArrayList<String> changedTextWords=convertStringToWords(changedTextLines.get(i));
 				 
-				 checkIfCountLinesEquals(originalTextWords,changedTextWords);
+				 // check if lines count is equal for the tow list , to avoid out of range exception 
+				 checkIfCountOfLinesOrWordsEquals(originalTextWords,changedTextWords);
+				 
 					// check words differences 
 					for(int j=0;j<originalTextWords.size();j++){
-						
-						  System.out.println("original : -"+originalTextWords.get(j)+"- changed : -"+changedTextWords.get(j)+"-");
-						
 					      if(originalTextWords.get(j).equalsIgnoreCase(changedTextWords.get(j))) {
-						       
+					    	  
 						       originalWordsDifferences.add(new Difference(DiffType.EQUAL,originalTextWords.get(j)));
-							   changedWordsDifferences.add(new Difference(DiffType.EQUAL,originalTextWords.get(j)));
-							   
+							   changedWordsDifferences.add(new Difference(DiffType.EQUAL,originalTextWords.get(j)));   
 					      }
 					      
 						  else {
@@ -93,7 +93,6 @@ public class TextDiffChecker {
 						  }
 					    
 					 }
-					
 					finalDiffs.getOriginalTextDiffs().add(new LineDifference(i,IsLineDiff.YES,originalWordsDifferences));
 					finalDiffs.getChangedTextDiffs().add(new LineDifference(i,IsLineDiff.YES,changedWordsDifferences));
 				}
@@ -101,14 +100,19 @@ public class TextDiffChecker {
 	}
 	
 	private ArrayList<String>  convertStringToWords(String text) {
-		return new ArrayList<String>(Arrays.asList(text.split(" ")));
+		ArrayList<String> wordsList = new ArrayList<String>(Arrays.asList(text.split(" ")));
+		// avoid ignore spaces value
+		for(int i=0;i<wordsList.size();i++)
+			if(wordsList.get(i).equals(""))
+				wordsList.set(i, " ");
+		return wordsList;	
 	}
 	
 	private ArrayList<String>  convertStringToLines(String text) {
 		return new ArrayList<String>(Arrays.asList(text.split(System.getProperty("line.separator"))));	
 	}
 	
-	private void checkIfCountLinesEquals(ArrayList<String> originalTextLines,ArrayList<String> changedTextLines)
+	private void checkIfCountOfLinesOrWordsEquals(ArrayList<String> originalTextLines,ArrayList<String> changedTextLines)
 	{
 		if(originalTextLines.size()!=changedTextLines.size())
 			if(originalTextLines.size()>changedTextLines.size())
@@ -117,7 +121,7 @@ public class TextDiffChecker {
 			 addlines(originalTextLines,changedTextLines.size()-originalTextLines.size());
     }
 	
-	public void addlines(ArrayList<String> lines,int addednumber) {
+	private void addlines(ArrayList<String> lines,int addednumber) {
 		for(int i=0;i<addednumber;i++)
 			lines.add("");
 	}

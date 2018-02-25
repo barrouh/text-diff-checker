@@ -1,0 +1,63 @@
+.table-style
+{
+	font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    width:100%;
+}
+td
+{
+	padding:5px;
+}
+th
+{
+	padding-bottom:10px;
+}
+.diff-line-equal
+{
+	color: #000;
+	width:50%;
+	border: 1px solid rgb(188,188,188);
+	background: rgb(226,226,226);
+	
+}
+
+.diff-line-addition
+{
+	color: #000;
+	width:50%;
+	border: 1px solid rgb(26, 152, 31);
+	background: rgb(224, 252, 208);
+
+}
+.diff-line-removal
+{
+	color: #000;
+	width:50%;
+	border: 1px solid rgb(154, 35, 40); 
+	background: rgb(252, 216, 217);
+	
+}
+
+
+.diff-text-addition
+{
+	background: rgb(153, 255, 153);
+/*	border: 1px solid rgb(26, 152, 31); */
+	padding-top:3px;
+	padding-bottom:3px;
+}
+.diff-text-removal
+{
+	background: rgb(255, 136, 136);
+/*	border: 1px solid rgb(154, 35, 40); */
+	padding-top:3px;
+	padding-bottom:3px;
+}
+.diff-text-equal
+{
+	background: rgb(226,226,226);
+/*	border: 1px solid rgb(142, 141, 141); */
+	padding-top:3px;
+	padding-bottom:3px;
+}

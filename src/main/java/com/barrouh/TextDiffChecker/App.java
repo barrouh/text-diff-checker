@@ -13,11 +13,30 @@ public class App
 {
     public static void main( String[] args ) throws IOException
     {
-    	TextDiffChecker test = new TextDiffChecker();
-    	test.findDifferences();
+        Utils testutils = new Utils();
     	
-    	/*Utils testutils = new Utils();
-    	System.out.println(testutils.readFromFile("C:/Users/mbarrouh/Desktop/testtext.txt"));
-    	*/
+    	String text1 , text2;
+    	
+    	text1 =testutils.readFromFile("C:/Users/mbarrouh/Desktop/test/testcase1.txt");
+        text2 =testutils.readFromFile("C:/Users/mbarrouh/Desktop/test/testcase2.txt");
+
+    	TextDiffChecker test = new TextDiffChecker(text1,text2);
+    	
+    	testutils.convertToHtmlFile(test.getFinalDifferences(),"C:/Users/mbarrouh/Desktop/test//");
+    	System.out.println(testutils.convertToHtml(test.getFinalDifferences()));
+    	
+    /*
+    	String test1="test  test1";
+    	TextDiffChecker test = new TextDiffChecker();
+    	
+    	ArrayList<String> res=test.convertStringToWords(test1);
+    	
+    	System.out.println(res.size());
+    	
+    	System.out.println("-"+res.get(0)+"- -"+res.get(1)+"-");
+    */	
+    	
+    	
+    	
     }
 }

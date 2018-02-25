@@ -11,7 +11,6 @@ public class Difference {
 
 	public Difference(DiffType type, String difference) {
 		super();
-	
 		this.type = type;
 		this.difference = difference;
 	}

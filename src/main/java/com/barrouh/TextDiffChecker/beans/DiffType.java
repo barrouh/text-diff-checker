@@ -21,7 +21,7 @@ public enum DiffType {
         this.type = type;
     }
 
-    public String type() {
+    public String getDiffType() {
         return type;
     }
 	
