@@ -17,12 +17,12 @@ public class App
     	
     	String text1 , text2;
     	
-    	text1 =testutils.readFromFile("C:/Users/mbarrouh/Desktop/test/testcase1.txt");
-        text2 =testutils.readFromFile("C:/Users/mbarrouh/Desktop/test/testcase2.txt");
+    	text1 =testutils.readFromFile("src/test/resources/testcase1.txt");
+        text2 =testutils.readFromFile("src/test/resources/testcase2.txt");
 
     	TextDiffChecker test = new TextDiffChecker(text1,text2);
     	
-    	testutils.convertToHtmlFile(test.getFinalDifferences(),"C:/Users/mbarrouh/Desktop/test//");
+    	testutils.convertToHtmlFile(test.getFinalDifferences(),"src/test/resources/");
     	System.out.println(testutils.convertToHtml(test.getFinalDifferences()));
     	
     /*
