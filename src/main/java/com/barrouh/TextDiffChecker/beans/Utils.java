@@ -15,13 +15,21 @@ public class Utils {
 
 
 	public String readFromFile(String path) throws IOException{
-	
 		String line ;
 		StringBuilder sb = new StringBuilder("");
 	    FileReader fileReader =  new FileReader(path);
 	    BufferedReader bufferedReader = new BufferedReader(fileReader);
-	    while((line = bufferedReader.readLine()) != null) {
-	    sb.append(line+"\r\n");
+	    while(bufferedReader.ready()) {
+		    line=bufferedReader.readLine();
+		    if(line.equals(""))
+		    {
+		    	line="emptyLine";
+				sb.append(line+"\r\n");
+		    }
+		    else
+		    {
+		    	 sb.append(line+"\r\n");
+		    }
 	    }   
 	    bufferedReader.close(); 
 		return sb.toString();
@@ -43,7 +51,7 @@ public class Utils {
 	{
 		String Htmltable="";
 		// add css style to the table 
-		 try {Htmltable+="<style>\n"+readFromFile("src/resources/style.css")+"\n</style>\n";}
+		 try {Htmltable+="<style>\n"+readFromFile("src/main/resources/style.css")+"\n</style>\n";}
 		 catch (IOException e) {e.printStackTrace();}
 		 
 		Htmltable+="<table class='table-style'>\n";
@@ -51,6 +59,8 @@ public class Utils {
 		// add table title 
 		Htmltable+="\t<tr>\n\t\t<th>Original Text</th>\n\t\t<th>Changed Text</th>\n\t</tr>\n";
 		 
+		deleteEmptyLineWord(finalDiffs);
+		
 		for(int i=0;i<finalDiffs.getOriginalTextDiffs().size();i++){
 			
 			//if the lines is the same just print it ,
@@ -97,11 +107,41 @@ public class Utils {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	private void deleteEmptyLineWord(FinalDifferences finalDiffs)
+	{
+		//for original text
+		for(int i=0;i<finalDiffs.getOriginalTextDiffs().size();i++){
+			if(finalDiffs.getOriginalTextDiffs().get(i).getLineValue()!=null) {
+				if(finalDiffs.getOriginalTextDiffs().get(i).getLineValue().equals("emptyLine"))
+					finalDiffs.getOriginalTextDiffs().get(i).setLineValue("");
+			}
+			else
+			{
+				for(int j=0;j<finalDiffs.getOriginalTextDiffs().get(i).getDifferences().size();j++){
+					if(finalDiffs.getOriginalTextDiffs().get(i).getDifferences().get(j).getDifference().equals("emptyLine"))
+						finalDiffs.getOriginalTextDiffs().get(i).getDifferences().get(j).setDifference("");
+				}
+			}	
+		}
+		
+		// for changed text
+		for(int i=0;i<finalDiffs.getChangedTextDiffs().size();i++){
+			if(finalDiffs.getChangedTextDiffs().get(i).getLineValue()!=null) {
+				if(finalDiffs.getChangedTextDiffs().get(i).getLineValue().equals("emptyLine"))
+					finalDiffs.getChangedTextDiffs().get(i).setLineValue("");
+			}
+			else
+			{
+				for(int j=0;j<finalDiffs.getChangedTextDiffs().get(i).getDifferences().size();j++){
+					if(finalDiffs.getChangedTextDiffs().get(i).getDifferences().get(j).getDifference().equals("emptyLine"))
+						finalDiffs.getChangedTextDiffs().get(i).getDifferences().get(j).setDifference("");
+				}
+			}	
+		}
+		
+	 }
 }
+
+	
+	
+

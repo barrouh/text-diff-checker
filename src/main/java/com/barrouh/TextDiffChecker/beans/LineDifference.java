@@ -49,6 +49,10 @@ public class LineDifference {
 		return lineValue;
 	}
 
+	public void setLineValue(String lineValue) {
+		this.lineValue = lineValue;
+	}
+
 	public ArrayList<Difference> getDifferences() {
 		return differences;
 	}

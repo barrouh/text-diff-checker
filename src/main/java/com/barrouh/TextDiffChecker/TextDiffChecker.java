@@ -57,15 +57,41 @@ public class TextDiffChecker {
 		
 		// avoid null pointer exception 
 		checkIfCountOfLinesOrWordsEquals(originalTextLines,changedTextLines);
-		
 		// check lines differences 
+		System.out.println("originalTextLines : "+originalTextLines.size());
+		System.out.println("changedTextLines : "+changedTextLines.size());
 		for(int i=0;i<originalTextLines.size();i++){
 			
-			if(originalTextLines.get(i).equalsIgnoreCase(changedTextLines.get(i))){
+			/*				
+				System.out.println("originalTextLines : "+originalTextLines.get(i));
+				System.out.println("changedTextLines : "+changedTextLines.get(i));
+							
+			if(originalTextLines.get(i).equals("emptyLine") || changedTextLines.get(i).equals("emptyLine") ){
+				
+				 final ArrayList<Difference> originalWordsDifferences = new ArrayList<Difference>() ;
+				 final ArrayList<Difference> changedWordsDifferences = new ArrayList<Difference>() ;
+				
+				if(originalTextLines.get(i).equals("emptyLine") && changedTextLines.get(i).equals("addedLine")) {
+					originalWordsDifferences.add(new Difference(DiffType.REMOVAL,originalTextLines.get(i)));
+					changedWordsDifferences.add(new Difference(DiffType.ADDITION,originalTextLines.get(i)));
+					
+					finalDiffs.getOriginalTextDiffs().add(new LineDifference(i,IsLineDiff.YES,originalWordsDifferences));
+					finalDiffs.getChangedTextDiffs().add(new LineDifference(i,IsLineDiff.YES,changedWordsDifferences));
+				}
+				else if(originalTextLines.get(i).equals("addedLine") && changedTextLines.get(i).equals("emptyLine"))
+				{
+					originalWordsDifferences.add(new Difference(DiffType.ADDITION,originalTextLines.get(i)));
+					changedWordsDifferences.add(new Difference(DiffType.REMOVAL,originalTextLines.get(i)));
+					
+					finalDiffs.getOriginalTextDiffs().add(new LineDifference(i,IsLineDiff.YES,originalWordsDifferences));
+					finalDiffs.getChangedTextDiffs().add(new LineDifference(i,IsLineDiff.YES,changedWordsDifferences));
+				}
+			}
+		    else */ if(originalTextLines.get(i).equalsIgnoreCase(changedTextLines.get(i))){
 				// add the same lines to final diffs object 
 				finalDiffs.getOriginalTextDiffs().add(new LineDifference(i,IsLineDiff.NO,originalTextLines.get(i)));
 				finalDiffs.getChangedTextDiffs().add(new LineDifference(i,IsLineDiff.NO,changedTextLines.get(i)));
-			   }   
+			   }
 			else{
 				
 				 final ArrayList<Difference> originalWordsDifferences = new ArrayList<Difference>() ;

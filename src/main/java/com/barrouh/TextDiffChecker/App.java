@@ -1,7 +1,7 @@
 package com.barrouh.TextDiffChecker;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 import com.barrouh.TextDiffChecker.beans.Utils;
 
@@ -21,9 +21,8 @@ public class App
         text2 =testutils.readFromFile("src/test/resources/testcase2.txt");
 
     	TextDiffChecker test = new TextDiffChecker(text1,text2);
-    	
     	testutils.convertToHtmlFile(test.getFinalDifferences(),"src/test/resources/");
-    	System.out.println(testutils.convertToHtml(test.getFinalDifferences()));
+    	//System.out.println(testutils.convertToHtml(test.getFinalDifferences()));
     	
     /*
     	String test1="test  test1";
