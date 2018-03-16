@@ -12,7 +12,8 @@ import java.util.ArrayList;
  *
  */
 public class Utils {
-
+	
+	private String specialChar="-:-:-:-";
 
 	public String readFromFile(String path) throws IOException{
 		String line ;
@@ -31,12 +32,20 @@ public class Utils {
 		    	 sb.append(line+"\r\n");
 		    }
 	    }   
-	    bufferedReader.close(); 
-		return sb.toString();
+	    bufferedReader.close();
+	    
+		return sb.toString().replace(" ", specialChar);
 	}
 	
-	public String convertToHtml(FinalDifferences finalDiffs)
-	{
+	public String readFromFile(String path, boolean isAnInternalFile) throws IOException{
+		if(isAnInternalFile)
+		return readFromFile(path).replace(specialChar, " "); 
+		else
+		return readFromFile(path);
+	}
+	
+	
+	public String convertToHtml(FinalDifferences finalDiffs){
 		return ToHtml(finalDiffs);
 	}
 	
@@ -51,7 +60,7 @@ public class Utils {
 	{
 		String Htmltable="";
 		// add css style to the table 
-		 try {Htmltable+="<style>\n"+readFromFile("src/main/resources/style.css")+"\n</style>\n";}
+		 try {Htmltable+="<style>\n"+readFromFile("src/main/resources/style.css",true)+"\n</style>\n";}
 		 catch (IOException e) {e.printStackTrace();}
 		 
 		Htmltable+="<table class='table-style'>\n";
@@ -102,8 +111,9 @@ public class Utils {
 			}
 		}
 		
+		
 		Htmltable+="\n</table>";
-		return Htmltable;
+		return Htmltable.replace(specialChar," ");
 	}
 	
 	
