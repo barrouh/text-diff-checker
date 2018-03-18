@@ -19,6 +19,10 @@ public class TextDiffChecker {
 	
 	private FinalDifferences finalDiffs = new FinalDifferences();
 	
+	private ArrayList<Difference> originalWordsDifferences;
+	
+	private ArrayList<Difference> changedWordsDifferences;
+	
 	public TextDiffChecker() {}
 
 	public TextDiffChecker(String originalText, String changedText) {
@@ -94,35 +98,34 @@ public class TextDiffChecker {
 			   }
 			else{
 				
-				 final ArrayList<Difference> originalWordsDifferences = new ArrayList<Difference>() ;
-				 final ArrayList<Difference> changedWordsDifferences = new ArrayList<Difference>() ;
-				
+				 originalWordsDifferences = new ArrayList<Difference>() ;
+				 changedWordsDifferences = new ArrayList<Difference>() ;
 			     // convert line to words list 
 				 ArrayList<String> originalTextWords=convertStringToWords(originalTextLines.get(i));
 				 ArrayList<String> changedTextWords=convertStringToWords(changedTextLines.get(i));
-				 
 				 // check if lines count is equal for the tow list , to avoid out of range exception 
 				 checkIfCountOfLinesOrWordsEquals(originalTextWords,changedTextWords);
-				 
-					// check words differences 
-					for(int j=0;j<originalTextWords.size();j++){
-					      if(originalTextWords.get(j).equalsIgnoreCase(changedTextWords.get(j))) {
-					    	  
-						       originalWordsDifferences.add(new Difference(DiffType.EQUAL,originalTextWords.get(j)));
-							   changedWordsDifferences.add(new Difference(DiffType.EQUAL,originalTextWords.get(j)));   
-					      }
-					      
-						  else {
-							  
-							   originalWordsDifferences.add(new Difference(DiffType.REMOVAL,originalTextWords.get(j)));
-							   changedWordsDifferences.add(new Difference(DiffType.ADDITION,changedTextWords.get(j)));
-						  }
-					    
-					 }
-					finalDiffs.getOriginalTextDiffs().add(new LineDifference(i,IsLineDiff.YES,originalWordsDifferences));
-					finalDiffs.getChangedTextDiffs().add(new LineDifference(i,IsLineDiff.YES,changedWordsDifferences));
+				// check words differences 
+				 checkWordsDifferences(originalTextWords,changedTextWords,i);
 				}
 		}
+	}
+	
+	private void checkWordsDifferences(ArrayList<String> originalTextWords,ArrayList<String> changedTextWords , int index ){
+		for(int j=0;j<originalTextWords.size();j++){
+		      if(originalTextWords.get(j).equalsIgnoreCase(changedTextWords.get(j))){
+		    	  
+			       originalWordsDifferences.add(new Difference(DiffType.EQUAL,originalTextWords.get(j)));
+				   changedWordsDifferences.add(new Difference(DiffType.EQUAL,originalTextWords.get(j)));   
+		      }
+			  else{
+				  
+				   originalWordsDifferences.add(new Difference(DiffType.REMOVAL,originalTextWords.get(j)));
+				   changedWordsDifferences.add(new Difference(DiffType.ADDITION,changedTextWords.get(j)));
+			  } 
+		 }
+		finalDiffs.getOriginalTextDiffs().add(new LineDifference(index,IsLineDiff.YES,originalWordsDifferences));
+		finalDiffs.getChangedTextDiffs().add(new LineDifference(index,IsLineDiff.YES,changedWordsDifferences));
 	}
 	
 	private ArrayList<String>  convertStringToWords(String text) {

@@ -20,20 +20,17 @@ public class Utils {
 		StringBuilder sb = new StringBuilder("");
 	    FileReader fileReader =  new FileReader(path);
 	    BufferedReader bufferedReader = new BufferedReader(fileReader);
-	    while(bufferedReader.ready()) {
+	    while(bufferedReader.ready()){
 		    line=bufferedReader.readLine();
-		    if(line.equals(""))
-		    {
+		    if(line.equals("")){
 		    	line="emptyLine";
 				sb.append(line+"\r\n");
 		    }
-		    else
-		    {
+		    else{
 		    	 sb.append(line+"\r\n");
 		    }
 	    }   
 	    bufferedReader.close();
-	    
 		return sb.toString().replace(" ", specialChar);
 	}
 	
@@ -49,15 +46,13 @@ public class Utils {
 		return ToHtml(finalDiffs);
 	}
 	
-	public void convertToHtmlFile(FinalDifferences finalDiffs,String path) throws FileNotFoundException, UnsupportedEncodingException
-	{
+	public void convertToHtmlFile(FinalDifferences finalDiffs,String path) throws FileNotFoundException, UnsupportedEncodingException{
 		PrintWriter writer = new PrintWriter(path+"/TowFilesDiffrencesResult.html", "UTF-8");
 		writer.println(ToHtml(finalDiffs));
 		writer.close();
 	}
 	
-	private String ToHtml(FinalDifferences finalDiffs)
-	{
+	private String ToHtml(FinalDifferences finalDiffs){
 		String Htmltable="";
 		// add css style to the table 
 		 try {Htmltable+="<style>\n"+readFromFile("src/main/resources/style.css",true)+"\n</style>\n";}
@@ -113,12 +108,11 @@ public class Utils {
 		
 		
 		Htmltable+="\n</table>";
-		return Htmltable.replace(specialChar," ");
+		return Htmltable.replace(specialChar,"&nbsp;");
 	}
 	
 	
-	private void deleteEmptyLineWord(FinalDifferences finalDiffs)
-	{
+	private void deleteEmptyLineWord(FinalDifferences finalDiffs){
 		//for original text
 		for(int i=0;i<finalDiffs.getOriginalTextDiffs().size();i++){
 			if(finalDiffs.getOriginalTextDiffs().get(i).getLineValue()!=null) {

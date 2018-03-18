@@ -5,6 +5,11 @@
     vertical-align: baseline;
     width:100%;
 }
+span
+{
+	text-align: justify;
+    text-justify: inter-word;
+}
 td
 {
 	padding:5px;
