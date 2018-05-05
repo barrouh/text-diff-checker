@@ -24,10 +24,10 @@ public class Utils {
 		    line=bufferedReader.readLine();
 		    if(line.equals("")){
 		    	line="emptyLine";
-				sb.append(line+"\r\n");
+				sb.append(line+"\n");
 		    }
 		    else{
-		    	 sb.append(line+"\r\n");
+		    	 sb.append(line+"\n");
 		    }
 	    }   
 	    bufferedReader.close();
@@ -108,7 +108,7 @@ public class Utils {
 		
 		
 		Htmltable+="\n</table>";
-		return Htmltable.replace(specialChar,"&nbsp;");
+		return Htmltable.replace(specialChar,"<p class='space_char'> </p>");
 	}
 	
 	
@@ -118,9 +118,7 @@ public class Utils {
 			if(finalDiffs.getOriginalTextDiffs().get(i).getLineValue()!=null) {
 				if(finalDiffs.getOriginalTextDiffs().get(i).getLineValue().equals("emptyLine"))
 					finalDiffs.getOriginalTextDiffs().get(i).setLineValue("");
-			}
-			else
-			{
+			}else{
 				for(int j=0;j<finalDiffs.getOriginalTextDiffs().get(i).getDifferences().size();j++){
 					if(finalDiffs.getOriginalTextDiffs().get(i).getDifferences().get(j).getDifference().equals("emptyLine"))
 						finalDiffs.getOriginalTextDiffs().get(i).getDifferences().get(j).setDifference("");
@@ -134,18 +132,17 @@ public class Utils {
 				if(finalDiffs.getChangedTextDiffs().get(i).getLineValue().equals("emptyLine"))
 					finalDiffs.getChangedTextDiffs().get(i).setLineValue("");
 			}
-			else
-			{
+			else{
 				for(int j=0;j<finalDiffs.getChangedTextDiffs().get(i).getDifferences().size();j++){
 					if(finalDiffs.getChangedTextDiffs().get(i).getDifferences().get(j).getDifference().equals("emptyLine"))
 						finalDiffs.getChangedTextDiffs().get(i).getDifferences().get(j).setDifference("");
 				}
 			}	
-		}
+	
 		
 	 }
 }
 
-	
+}	
 	
 
