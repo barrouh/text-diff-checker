@@ -1,9 +1,8 @@
-package com.barrouh.TextDiffChecker;
+package com.barrouh.textdiffchecker;
 
 import java.io.IOException;
 
-
-import com.barrouh.TextDiffChecker.beans.Utils;
+import com.barrouh.textdiffchecker.beans.Utils;
 
 /**
  * @author <a href="mailto:mohamed.barrouh@gmail.com">Mohamed Barrouh</a>
