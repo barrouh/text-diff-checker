@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:mohamed.barrouh@gmail.com">Mohamed Barrouh</a>
@@ -15,9 +18,25 @@ import java.util.ArrayList;
 public class Utils {
 	
 	/**
+	* the list of html chars like < ... to be replaced by there Entity Name .
+	*/
+	private HashMap<String, String> htmlCahrs = new HashMap<String, String>();
+		
+	private void addHtmlElements(){
+		// for more element see :
+		//https://www.w3schools.com/html/html_entities.asp
+		htmlCahrs.put("<","&lt;");
+		htmlCahrs.put(">","&gt;");
+	}
+	
+	public void addHtmlElement(String name,String result){
+		htmlCahrs.put(result,name);
+	}
+	
+	/**
 	* the empty Line value .
 	*/
-	private String emptyLine ="emptyLine";
+	private final static String emptyLine ="emptyLine";
 	
 	/**
 	* the special char to replace "" with it .
@@ -37,12 +56,15 @@ public class Utils {
 	* the default constructor of the Utils class 
 	*/
 	public Utils() {
+		this.addHtmlElements();
 	}
 	
 	/**
 	* the param constructor of the Utils class 
 	*/
 	public Utils(final String specialChar) {
+		super();
+		this.addHtmlElements();
 		this.specialChar = specialChar;
 	}
 
@@ -67,7 +89,7 @@ public class Utils {
 		    }
 	    }   
 	    bufferedReader.close();
-		return outputString.toString().replace(" ", specialChar);
+		return htmlElementValidator(outputString.toString().replace(" ", specialChar));
 	}
 	
 	/**
@@ -205,6 +227,17 @@ public class Utils {
 		return htmltable.toString().replace(specialChar,"<p class='space_char'> </p>");
 	}
 		
+	private String htmlElementValidator(String element){
+		  Set<Map.Entry<String, String>> htmlElementsSet = htmlCahrs.entrySet();
+		  
+		    for (Map.Entry<String, String> htmlElement : htmlElementsSet) {
+		    	if(element.contains(htmlElement.getKey())){
+		    		element=element.replace(htmlElement.getKey().toString(), htmlElement.getValue().toString());	
+		    	}
+		    }
+		 return element;
+	}
+	
 	private void deleteEmptyLineWord(FinalDifferences finalDiffs){
 		//for original text
 		for(int i=0;i<finalDiffs.getOriginalTextDiffs().size();i++){
