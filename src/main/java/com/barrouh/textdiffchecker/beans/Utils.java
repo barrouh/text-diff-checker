@@ -39,23 +39,20 @@ public class Utils {
 	private final static String emptyLine ="emptyLine";
 	
 	/**
-	* the special char to replace "" with it .
+	* the special string  to replace " " with it .
+	* this parameter now will generated automatically to avoid comparison problems 
 	*/
-	private String specialChar="-:-:-:-";
-	
-	public void setSpecialChar(final String specialChar) {
-		this.specialChar = specialChar;
-	}
+	private String specialChar;
 
-	public String getSpecialChar() {
-		return specialChar;
+	private void generatespecialChar(){	
+		specialChar=Long.toHexString(Double.doubleToLongBits(Math.random()));
 	}
-
 	
 	/**
 	* the default constructor of the Utils class 
 	*/
 	public Utils() {
+		this.generatespecialChar();
 		this.addHtmlElements();
 	}
 	
@@ -65,6 +62,7 @@ public class Utils {
 	public Utils(final String specialChar) {
 		super();
 		this.addHtmlElements();
+		this.generatespecialChar();
 		this.specialChar = specialChar;
 	}
 
@@ -89,7 +87,13 @@ public class Utils {
 		    }
 	    }   
 	    bufferedReader.close();
-		return htmlElementValidator(outputString.toString().replace(" ", specialChar));
+	    
+	    if(outputString.toString().contains(specialChar)) {
+	      this.generatespecialChar();
+		  return outputString.toString().replace(" ", specialChar);
+	    }else{
+	      return outputString.toString().replace(" ", specialChar);	
+	    }
 	}
 	
 	/**
@@ -143,6 +147,8 @@ public class Utils {
 		htmltable.append("<table class='table-style'>\n\t<tr>\n\t\t<th>Original Text</th>\n\t\t<th>Changed Text</th>\n\t</tr>\n");
 		 
 		deleteEmptyLineWord(finalDiffs);
+		
+		htmlValidator(finalDiffs);
 		
 		for(int i=0;i<finalDiffs.getOriginalTextDiffs().size();i++){
 			
@@ -238,6 +244,37 @@ public class Utils {
 		 return element;
 	}
 	
+	private void htmlValidator(FinalDifferences finalDiffs){
+		String differenceValue;
+		//for original text
+		for(int i=0;i<finalDiffs.getOriginalTextDiffs().size();i++){
+			if(finalDiffs.getOriginalTextDiffs().get(i).getLineValue()!=null) {
+				differenceValue=htmlElementValidator(finalDiffs.getOriginalTextDiffs().get(i).getLineValue());
+			 finalDiffs.getOriginalTextDiffs().get(i).setLineValue(differenceValue); 
+			}else{
+				for(int j=0;j<finalDiffs.getOriginalTextDiffs().get(i).getDifferencesList().size();j++){
+					differenceValue=htmlElementValidator(finalDiffs.getOriginalTextDiffs().get(i).getDifferencesList().get(j).getDifferenceValue());
+					finalDiffs.getOriginalTextDiffs().get(i).getDifferencesList().get(j).setDifferenceValue(differenceValue);	
+				}
+			}
+			differenceValue=null;
+		}
+		//for changed text
+		for(int i=0;i<finalDiffs.getChangedTextDiffs().size();i++){
+			if(finalDiffs.getChangedTextDiffs().get(i).getLineValue()!=null) {
+				differenceValue=htmlElementValidator(finalDiffs.getChangedTextDiffs().get(i).getLineValue());
+			 finalDiffs.getChangedTextDiffs().get(i).setLineValue(differenceValue); 
+			}else{
+				for(int j=0;j<finalDiffs.getChangedTextDiffs().get(i).getDifferencesList().size();j++){
+					differenceValue=htmlElementValidator(finalDiffs.getChangedTextDiffs().get(i).getDifferencesList().get(j).getDifferenceValue());
+					finalDiffs.getChangedTextDiffs().get(i).getDifferencesList().get(j).setDifferenceValue(differenceValue);	
+				}
+			}
+			differenceValue=null;
+		}
+			
+	}
+	
 	private void deleteEmptyLineWord(FinalDifferences finalDiffs){
 		//for original text
 		for(int i=0;i<finalDiffs.getOriginalTextDiffs().size();i++){
@@ -269,5 +306,3 @@ public class Utils {
 }
 
 }	
-	
-
