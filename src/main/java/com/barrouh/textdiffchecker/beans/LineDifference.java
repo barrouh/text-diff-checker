@@ -8,44 +8,23 @@ import java.util.List;
  * @author <a href="mailto:mohamed.barrouh@gmail.com">Mohamed Barrouh</a>
  *
  */
-
 public class LineDifference {
 
-	/**
-	* the index of the line 
-	*/
 	private int line ;
 	
-	/**
-	* this parameter added to know if the line is changed or no 
-	*/
 	private IsLineDiff isDiff ;
 	
-	/**
-	* the string value of the line 
-	*/
 	private String lineValue;
 	
-	/**
-	*  the list of all differences in one line , word by word 
-	*/
 	private List<Difference> differencesList ;
 
-	/**
-	* 
-	*/
 	public LineDifference(final int line, final IsLineDiff isDiff, final String lineValue) {
-		super();
 		this.line = line;
 		this.isDiff = isDiff;
 		this.lineValue=lineValue;
 	}
 	
-	/**
-	* 
-	*/
 	public LineDifference(final int line, final IsLineDiff isDiff, final List<Difference> differencesList) {
-		super();
 		this.line = line;
 		this.isDiff = isDiff;
 		this.differencesList = differencesList;
@@ -78,5 +57,4 @@ public class LineDifference {
 	public List<Difference> getDifferencesList() {
 		return differencesList;
 	}	
-	
 }

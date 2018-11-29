@@ -43,6 +43,5 @@ public class Difference {
 	public void setDifferenceValue(final String differenceValue) {
 		this.differenceValue = differenceValue;
 	}	
-	
-	
+		
 }
