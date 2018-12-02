@@ -11,22 +11,14 @@ public enum DiffType {
 	REMOVAL("Removal"),
 	ADDITION("Addition"),
 	EQUAL("Equal");
-	
-	/**
-	* the final value of enum 
-	*/
+
     private String type;
 
     DiffType(final String type) {
         this.type = type;
     }
     
-    /**
-    * This method added to return the value of the enum
-    */
     public String getDiffType() {
         return type;
     }
-	
-	
 }

@@ -11,7 +11,7 @@ public enum IsLineDiff {
 	YES(true),
 	NO(false);
 	
-	/**
+   /**
     * the final value of enum 
     */
     private boolean flag;
@@ -22,10 +22,9 @@ public enum IsLineDiff {
 
     /**
     * This method added to return the value of the enum
+    * @return the value of enum
     */
     public boolean isLineDiff() {
         return flag;
     }
-	
-	
 }
