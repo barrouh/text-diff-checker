@@ -46,7 +46,7 @@
 	</distributionManagement>
 
 	<scm>
-		<connection>scm:git:git://github.com/barrouh/TextDiffChecker.git</connection>
+		<connection>scm:git:ssh://github.com/barrouh/TextDiffChecker.git</connection>
 		<developerConnection>scm:git:ssh://github.com:barrouh/TextDiffChecker.git</developerConnection>
 		<url>http://github.com/barrouh/TextDiffChecker</url>
 	    <tag>TextDiffChecker-1.0</tag>
