@@ -17,6 +17,10 @@ import com.barrouh.textdiffchecker.utils.MapComparator;
  *
  */
 public class TextDiffChecker {
+	
+	private Integer removals = 0;
+	
+	private Integer additions = 0;
 
 	private String originalText;
 
@@ -28,9 +32,12 @@ public class TextDiffChecker {
 
 	private List<Difference> changedWordsDifs;
 
-	public TextDiffChecker() {}
+	public TextDiffChecker() {
+		finalDiffs.clear();
+	}
 
 	public TextDiffChecker(final String originalText, final String changedText) {
+		finalDiffs.clear();
 		this.originalText = originalText;
 		this.changedText = changedText;
 	}
@@ -52,8 +59,17 @@ public class TextDiffChecker {
 	}
 
 	public Map<LineDifference, LineDifference> getFinalDifferences() {
+		finalDiffs.clear();
 		findDifferences();
 		return finalDiffs;
+	}
+	
+	public Integer getRemovals() {
+		return removals;
+	}
+
+	public Integer getAdditions() {
+		return additions;
 	}
 
 	private void findDifferences() {
@@ -85,9 +101,13 @@ public class TextDiffChecker {
 			if (originalTextWords.get(j).equalsIgnoreCase(changedTextWords.get(j))) {
 				originalWordsDifs.add(new Difference(DiffType.EQUAL, originalTextWords.get(j)));
 				changedWordsDifs.add(new Difference(DiffType.EQUAL, originalTextWords.get(j)));
+				removals++;
+                additions++;
 			} else {
 				originalWordsDifs.add(new Difference(DiffType.REMOVAL, originalTextWords.get(j)));
 				changedWordsDifs.add(new Difference(DiffType.ADDITION, changedTextWords.get(j)));
+				removals++;
+                additions++;
 			}
 		}
 		finalDiffs.put(new LineDifference(index, IsLineDiff.YES, originalWordsDifs),new LineDifference(index, IsLineDiff.YES, changedWordsDifs));
@@ -105,7 +125,7 @@ public class TextDiffChecker {
 	}
 
 	private List<String> convertStringToLines(final String text) {
-		return new ArrayList<>(Arrays.asList(text.split(System.getProperty("line.separator"))));
+		return new ArrayList<>(Arrays.asList(text.split("\n")));
 	}
 
 	private void checkIfCountOfLinesOrWordsEquals(final List<String> originalTextLines,final List<String> changedTextLines) {

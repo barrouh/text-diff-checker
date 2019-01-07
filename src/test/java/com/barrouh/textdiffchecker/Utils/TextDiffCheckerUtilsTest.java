@@ -32,7 +32,7 @@ public class TextDiffCheckerUtilsTest {
 	
 	public void loadProperties() {
 		try {
-			prop.load(utils.getPropertiesFile("HtmlElements.properties"));
+			prop.load(utils.getPropertiesFile("htmlElements.properties"));
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
@@ -80,7 +80,7 @@ public class TextDiffCheckerUtilsTest {
 		loadProperties();
 		assertFalse(prop.isEmpty());
 		Object[] values = { "Value1","Value2","Value3" };
-		assertEquals("<tr class=diff-row><td class=diff-line-removal><span class=line-number>Value1</span><span>Value2</span></td><td class=diff-line-addition><span class=line-number>Value1</span><span>Value3</span></td>",utils.getHtmlElement("diffRowTrRemoval",values));
+		assertEquals("<tr class=diff-row><td class=diff-line-removal><span class=line-number>Value1</span>Value2</td><td class=diff-line-addition><span class=line-number>Value1</span>Value3</td></tr>",utils.getHtmlElement("diffRowTrRemoval",values));
 	}
 	
 	@Test
@@ -91,8 +91,9 @@ public class TextDiffCheckerUtilsTest {
 	
 	@Test
 	public void convertToHtml() throws IOException {
-		textDiffChecker = new TextDiffChecker(("Original.txt"),readFile("Changed.txt"));
+		textDiffChecker = new TextDiffChecker(readFile("Original.txt"),readFile("Changed.txt"));
 		Map<LineDifference, LineDifference> finalDiffs = textDiffChecker.getFinalDifferences();
+		utils.convertToHtmlFile(finalDiffs ,"C:\\Users\\mbarrouh\\Desktop\\testdiff");
 		assertNotNull(finalDiffs);
 		assertFalse(finalDiffs.isEmpty());
 	}

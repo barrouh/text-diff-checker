@@ -1,66 +1,63 @@
-.table-style
-{
-	font-size: 100%;
-    font: inherit;
+.table-style{
     vertical-align: baseline;
     width:100%;
+    border-collapse: separate;
+    border-spacing: 10px;
+    font-family: sans-serif;
 }
-span
-{
+
+span{
 	text-align: justify;
-    text-justify: inter-word;
 }
-td
-{
-	padding:5px;
+
+td{
+	padding:2px;
+	padding-left: 10px;
 }
-th
-{
-	padding-bottom:10px;
+
+th{
+	background: rgb(226,226,226);
+	color: #585858;
+	text-transform: uppercase;
+	font-weight: 800;
+    font-size: 10px;
+    padding: 2px;
+    letter-spacing: 0.05em;
 }
-.diff-line-equal
-{
+
+.diff-line-equal{
 	color: #000;
-	width:50%;
-	border: 1px solid rgb(188,188,188);
-	background: rgb(226,226,226);	
+	background: rgb(255,255,255);
 }
-.diff-line-addition
-{
+
+.diff-line-addition{
 	color: #000;
-	width:50%;
-	border: 1px solid rgb(26, 152, 31);
 	background: rgb(224, 252, 208);
 }
-.diff-line-removal
-{
+
+.diff-line-removal{
 	color: #000;
-	width:50%;
-	border: 1px solid rgb(154, 35, 40); 
 	background: rgb(252, 216, 217);
 }
-.diff-text-addition
-{
+
+.diff-text-addition{
 	background: rgb(153, 255, 153);
-/*	border: 1px solid rgb(26, 152, 31); */
-	padding-top:3px;
-	padding-bottom:3px;
+	padding-top:2px;
+	padding-bottom:2px;
 }
-.diff-text-removal
-{
+
+.diff-text-removal{
 	background: rgb(255, 136, 136);
-/*	border: 1px solid rgb(154, 35, 40); */
-	padding-top:3px;
-	padding-bottom:3px;
+	padding-top:2px;
+	padding-bottom:2px;
 }
-.diff-text-equal
-{
-	background: rgb(226,226,226);
-/*	border: 1px solid rgb(142, 141, 141); */
-	padding-top:3px;
-	padding-bottom:3px;
+
+.diff-text-equal{
+	background: rgb(255,255,255);
+	padding-top:2px;
+	padding-bottom:2px;
 }
-.space_char
-{
+
+.space_char{
 display: inline;
 }

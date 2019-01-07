@@ -39,10 +39,9 @@ public class TextDiffCheckerUtils {
 
 	private Map<String, String> htmlCahrs = new HashMap<>();
 
-
-   /**
-	*  Add defaults HtmlCahrs
-	*/
+	/**
+	 * Add defaults HtmlCahrs
+	 */
 	public void addHtmlCahrs() {
 		htmlCahrs.put("<", "&lt;");
 		htmlCahrs.put(">", "&gt;");
@@ -66,7 +65,7 @@ public class TextDiffCheckerUtils {
 			addHtmlCahrs();
 			specialChar = generateSpecialChar();
 			htmlElements = new Properties();
-			htmlElements.load(getPropertiesFile("HtmlElements.properties"));
+			htmlElements.load(getPropertiesFile(Constants.HTMLELEMENTSFILENAME));
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
@@ -77,7 +76,7 @@ public class TextDiffCheckerUtils {
 			addHtmlCahrs();
 			this.specialChar = specialChar;
 			htmlElements = new Properties();
-			htmlElements.load(getPropertiesFile("HtmlElements.properties"));
+			htmlElements.load(getPropertiesFile(Constants.HTMLELEMENTSFILENAME));
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
@@ -117,7 +116,7 @@ public class TextDiffCheckerUtils {
 	 * This method read the text from the provided file and return it as String
 	 * @param path of the file
 	 * @return file content as string
-	 * @throws IOException  if there is a problem while reading the file
+	 * @throws IOException if there is a problem while reading the file
 	 */
 	public String readFromFile(final String path) throws IOException {
 		StringBuilder outputString = new StringBuilder("");
@@ -144,7 +143,7 @@ public class TextDiffCheckerUtils {
 		}
 
 		if (outputString.toString().contains(specialChar)) {
-			this.generateSpecialChar();
+			this.specialChar = this.generateSpecialChar();
 			return outputString.toString().replace(" ", specialChar);
 		} else {
 			return outputString.toString().replace(" ", specialChar);
@@ -152,7 +151,7 @@ public class TextDiffCheckerUtils {
 	}
 
 	/**
-	 * @param finalDiffs  Map Original line, Changed line
+	 * @param finalDiffs Map Original line, Changed line
 	 * @return final result as html table
 	 */
 	public String convertToHtml(final Map<LineDifference, LineDifference> finalDiffs) {
@@ -160,12 +159,12 @@ public class TextDiffCheckerUtils {
 	}
 
 	/**
-	 * This method return the FinalDifferences html file
-	 * @param finalDiffs  Map Original line, Changed line
+	 * This method return the FinalDifferences html file 
+	 * @param finalDiffs Map Original line, Changed line
 	 * @param path of output file contain file name
 	 */
 	public void convertToHtmlFile(final Map<LineDifference, LineDifference> finalDiffs, final String path) {
-		try (PrintWriter writer = new PrintWriter(path + "/TowFilesDiffrencesResult.html", "UTF-8")) {
+		try (PrintWriter writer = new PrintWriter(path + Constants.HTMLRESULTDEFAULTFILENAME, Constants.DEFAULTCHARSET)) {
 			writer.println(toHtml(finalDiffs));
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			LOGGER.error(e.getMessage(), e);
@@ -174,13 +173,13 @@ public class TextDiffCheckerUtils {
 
 	/**
 	 * This method return the FinalDifferences html file with file name as parameter
-	 * @param finalDiffs  Map Original line, Changed line
+	 * @param finalDiffs Map Original line, Changed line
 	 * @param path of output file
 	 * @param fileName name of output file
 	 */
 	public void convertToHtmlFile(final Map<LineDifference, LineDifference> finalDiffs, final String path,
 			final String fileName) {
-		try (PrintWriter writer = new PrintWriter(path + "/" + fileName, "UTF-8")) {
+		try (PrintWriter writer = new PrintWriter(path + "/" + fileName, Constants.DEFAULTCHARSET)) {
 			writer.println(toHtml(finalDiffs));
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			LOGGER.error(e.getMessage(), e);
@@ -195,9 +194,8 @@ public class TextDiffCheckerUtils {
 
 	private String toHtml(final Map<LineDifference, LineDifference> finalDiffs) {
 		final StringBuilder htmltable = new StringBuilder();
-		//TODO create html and css formatter 
 		// add css style to the table
-		htmltable.append(getHtmlElement(Constants.STYLETAG, getFileFromJarFile("style.css")));
+		String cssStyle = getHtmlElement(Constants.STYLETAG, getFileFromJarFile(Constants.STYLEFILENAME));
 
 		deleteEmptyLineWord(finalDiffs);
 		htmlValidator(finalDiffs);
@@ -216,21 +214,22 @@ public class TextDiffCheckerUtils {
 				// for changed text
 				List<Difference> changedTextDifferences = entry.getValue().getDifferencesList();
 				changedText.append(addWordsSpans(changedTextDifferences));
-
+				
 				String[] args = { i + " . ", originalText.toString(), changedText.toString() };
 				htmltable.append(getHtmlElement("diffRowTrRemoval", args));
+				
 			} else {
 				String originalText = entry.getKey().getLineValue();
 				String changedText = entry.getValue().getLineValue();
 				String[] args = { i + " . ", originalText, changedText };
-				htmltable.append(getHtmlElement("diffRowTRequal", args));
+				htmltable.append(getHtmlElement("diffRowTrEqual", args));
 			}
 			i++;
 		}
 
 		// close table tag
-		return getHtmlElement("tableTag", getHtmlElement("tableTitle").concat(htmltable.toString()))
-				.replace(specialChar, "<p class='space_char'> </p>");
+		return cssStyle.concat(getHtmlElement("tableTag", getHtmlElement("tableTitle").concat(htmltable.toString()))
+				.replace(specialChar, "<p class='space_char'> </p>"));
 	}
 
 	private String addWordsSpans(List<Difference> textDifferences) {
