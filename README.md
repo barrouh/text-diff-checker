@@ -1,6 +1,6 @@
-# TextDiffChecker
+# text-diff-checker
 Find the differences between tow files or tow strings.
-### Demo Source code using Spring MVC : [TextDiffChecker Demo](https://github.com/barrouh/TextDiffCheckerDemo)
+### Demo Source code using Spring MVC : [text-diff-checker Demo](https://github.com/barrouh/TextDiffCheckerDemo)
 
 [![Travis-ci Status](https://travis-ci.org/barrouh/TextDiffChecker.svg?branch=master)](https://travis-ci.org/barrouh/TextDiffChecker) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
