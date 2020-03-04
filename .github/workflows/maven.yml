@@ -15,7 +15,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn -Psonar clean deploy -e --file pom.xml --settings /home/runner/work/parent-pom/maven-settings/settings.xml
+      run: mvn -Psonar clean deploy -e --file pom.xml --settings /home/runner/work/text-diff-checker/maven-settings/settings.xml
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
