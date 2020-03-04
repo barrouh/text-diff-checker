@@ -12,6 +12,7 @@ Build:
 ![Java CI](https://github.com/barrouh/text-diff-checker/workflows/Java%20CI/badge.svg)
 
 Metrics:
+
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=text-diff-checker&metric=bugs)](https://sonarcloud.io/dashboard?id=text-diff-checker)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=text-diff-checker&metric=code_smells)](https://sonarcloud.io/dashboard?id=text-diff-checker)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=text-diff-checker&metric=coverage)](https://sonarcloud.io/dashboard?id=text-diff-checker)
